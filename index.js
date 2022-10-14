@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/generate_payment_intent', (req, res) => {
-
+  console.log(req.body)
   chargebee.payment_intent.create(req.body).request(function(error,result) {
     if(error){
       //handle error
@@ -44,6 +44,31 @@ app.get('/api/customers', (req, res) => {
 
   })
 
+})
+
+app.post('/api/create_invoice', (req, res) => {
+
+  chargebee.invoice.create_for_charge_items_and_charges(req.body).request(function(error,result) {
+    
+    console.log(req.body)
+    if(error){
+      //handle error
+      res.json(error)
+    }else{
+      res.json(result.invoice)
+    }
+  })
+})
+
+app.get('/api/price_list', (req, res) => {
+  chargebee.item_price.list().request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error);
+    }else{
+      res.json(result.list)
+      }
+    })
 })
 
 app.listen(port, () => {
