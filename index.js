@@ -19,7 +19,6 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/generate_payment_intent', (req, res) => {
-  console.log(req.body)
   chargebee.payment_intent.create(req.body).request(function(error,result) {
     if(error){
       //handle error
@@ -32,7 +31,7 @@ app.post('/api/generate_payment_intent', (req, res) => {
 
 })
 
-app.get('/api/customers', (req, res) => {
+app.get('/api/customer/list', (req, res) => {
   chargebee.customer.list().request(function(error,result) {
 
     if(error){
@@ -46,11 +45,31 @@ app.get('/api/customers', (req, res) => {
 
 })
 
-app.post('/api/create_invoice', (req, res) => {
+app.post('/api/customer', (req, res) => {
+  chargebee.customer.create(req.body).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error)
+    }else{
+      res.json(result)
+    }
+  });
+})
 
+app.put('/api/customer', (req, res) => {
+  const customerData = Object.fromEntries(Object.entries(req.body).filter(([key]) => key !== 'customer_id'))
+  chargebee.customer.update(req.body.customer_id, customerData).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error);
+    }else{
+      res.json(result);
+    }
+  })
+})
+
+app.post('/api/create_invoice', (req, res) => {
   chargebee.invoice.create_for_charge_items_and_charges(req.body).request(function(error,result) {
-    
-    console.log(req.body)
     if(error){
       //handle error
       res.json(error)
@@ -60,7 +79,7 @@ app.post('/api/create_invoice', (req, res) => {
   })
 })
 
-app.get('/api/price_list', (req, res) => {
+app.get('/api/item_price/list', (req, res) => {
   chargebee.item_price.list().request(function(error,result) {
     if(error){
       //handle error
