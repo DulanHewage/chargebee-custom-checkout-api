@@ -67,6 +67,28 @@ app.put('/api/customer', (req, res) => {
     }
   })
 })
+// Delete a customer
+app.delete('/api/customer', (req, res) => {
+  chargebee.customer.delete(req.body.customer_id).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error)
+    }else{
+      res.json(result)
+    }
+  })
+})
+
+app.get('/api/customer', (req, res) => {
+  chargebee.customer.retrieve(req.body.customer_id).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error)
+    }else{
+      res.json(result)
+    }
+  })
+})
 
 app.post('/api/create_invoice', (req, res) => {
   chargebee.invoice.create_for_charge_items_and_charges(req.body).request(function(error,result) {
