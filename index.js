@@ -103,6 +103,28 @@ app.post('/api/create_invoice', (req, res) => {
     }
   })
 })
+// retrieve an invoice by id
+app.get('/api/invoice', (req, res) => {
+  chargebee.invoice.retrieve(req.body.invoice_id).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error)
+    }else{
+      res.json(result)
+    }
+  })
+})
+// retrieve an invoice list
+app.get('/api/invoice/list', (req, res) => {
+  chargebee.invoice.list(req.body).request(function(error,result) {
+    if(error){
+      //handle error
+      res.json(error);
+    }else{
+      res.json(result)
+    }
+  })
+})
 
 // get item price list
 app.get('/api/item_price/list', (req, res) => {
