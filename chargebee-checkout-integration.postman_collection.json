@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d0f15e89-2827-46b6-a3cf-af419762e1b1",
+		"_postman_id": "d5ec0c98-376a-4c23-85ca-03b1d3abd8be",
 		"name": "chargebee-checkout-integration",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -66,6 +66,13 @@
 						"api",
 						"customer",
 						"list"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -74,8 +81,17 @@
 		{
 			"name": "create_invoice",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customer_id\": \"BTcLI6TKY9y6H1Rva\",\r\n    \"currency_code\": \"USD\",\r\n    \"item_prices\": [\r\n        {\r\n            \"item_price_id\": \"hundred-credits\",\r\n            \"unit_price\": 100\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "http://localhost:3000/api/create_invoice",
 					"protocol": "http",
@@ -92,12 +108,12 @@
 			"response": []
 		},
 		{
-			"name": "price_list",
+			"name": "item_price/list",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/price_list",
+					"raw": "http://localhost:3000/api/item_price/list",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -105,7 +121,8 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"price_list"
+						"item_price",
+						"list"
 					]
 				}
 			},
@@ -162,7 +179,7 @@
 					"urlencoded": [
 						{
 							"key": "customer_id",
-							"value": "BTcLSyTKRT5Ch2t3S",
+							"value": "198VKkTKY2I7e1Olb",
 							"type": "default"
 						},
 						{
@@ -180,7 +197,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/customer",
+					"raw": "http://localhost:3000/api/customer?customer_id=199WY2TKRUN1p2rkP",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -193,8 +210,7 @@
 					"query": [
 						{
 							"key": "customer_id",
-							"value": "198VL5TKPe1Py2WHM",
-							"disabled": true
+							"value": "199WY2TKRUN1p2rkP"
 						}
 					]
 				}
@@ -268,6 +284,90 @@
 					"path": [
 						"api",
 						"create_for_charge_items_and_charges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item_family/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/item_family/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"item_family",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item/list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/item/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"item",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item_price/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/item_price/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"item_price",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "item/create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/item/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"item",
+						"create"
 					]
 				}
 			},
